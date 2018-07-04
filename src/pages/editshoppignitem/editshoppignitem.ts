@@ -37,4 +37,12 @@ export class EditshoppignitemPage {
         
       })
   }
+
+  removeItem(item: Item) {
+    this.shopping.removeItem(item)
+      .then(() => {
+        this.toastCtrl.show(`${item.name} removed!`);
+        this.navCtrl.setRoot('HomePage');
+      })
+  }
 }
