@@ -1,0 +1,40 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Item } from '../../models/item/item.model';
+import { ShoppingListService } from '../../services/shopping-list/shopping-list.service';
+import { ToastService } from '../../services/toast/toast.service';
+
+/**
+ * Generated class for the EditshoppignitemPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
+@Component({
+  selector: 'page-editshoppignitem',
+  templateUrl: 'editshoppignitem.html',
+})
+export class EditshoppignitemPage {
+  item: Item;
+
+  constructor(public navCtrl: NavController,
+     public navParams: NavParams,
+     private shopping: ShoppingListService,
+     private toastCtrl: ToastService) {
+  }
+
+  ionViewWillLoad() {
+    this.item = this.navParams.get('item');
+  }
+
+  saveItem(item: Item) {
+    this.shopping.editItem(item)
+      .then(() => {
+        this.toastCtrl.show(`${item.name} saved!`);
+        this.navCtrl.setRoot('HomePage');
+        
+      })
+  }
+}
